@@ -11,27 +11,32 @@ import theme from './app-theme';
 const list = [
   {
     id: '123',
-    name: 'Allyn',
-    surname: 'Alda',
+    name: 'Mario',
+    surname: 'Sanchez',
     birthdate: '01/11/1982'
   },
   {
     id: '122',
-    name: 'Allyn',
-    surname: 'Alda',
-    birthdate: '01/11/1982'
+    name: 'Carla',
+    surname: 'Jimenez',
+    birthdate: '01/11/1989'
   },
   {
     id: '111',
-    name: 'Allyn',
-    surname: 'Alda',
-    birthdate: '01/11/1982'
+    name: 'Jane',
+    surname: 'Doe',
+    birthdate: '01/11/1990'
   },
 ]
 
 const useStyles = makeStyles(() => ({
   app: {
-    textAlign: 'center'
+    textAlign: 'center',
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    height: '100vh',
+    justifyContent: 'center'
   },
   container: {
     width: '100vw',
@@ -42,7 +47,13 @@ const useStyles = makeStyles(() => ({
   },
   button: {
     width: 200,
-    margin: 30
+    margin: 30,
+    color: theme.palette.secondary.main,
+    fontWeight: 700
+  },
+  header: {
+    paddingTop: 50,
+    paddingBottom: 40
   }
 }));
 
@@ -56,12 +67,12 @@ function App() {
       <div className={classes.app}>
         {!showForm ? (
           <div className={classes.container}>
-            <Typography variant="h1">Patients List</Typography>
-            <Table patients={patients} />
-            <Button className={classes.button} variant="contained" onClick={() => setShowForm(!showForm)}>Add patient</Button>
+            <Typography variant="h1" color="primary" className={classes.header}>Patients List</Typography>
+            <Table patients={patients} setPatients={setPatients} />
+            <Button className={classes.button} variant="contained" color="primary" onClick={() => setShowForm(!showForm)}>Add patient</Button>
           </div>
         ) : (
-          <Form />
+          <Form setShowForm={setShowForm} showForm={showForm} patients={patients} setPatients={setPatients} />
         )}
       </div>
     </MuiThemeProvider>

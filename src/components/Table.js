@@ -10,34 +10,45 @@ import { Table as MuiTable,
  } from '@material-ui/core';
  import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     container: {
-      width: '50vw'
+        width: '50vw'
+    },
+    row: {
+        backgroundColor: theme.palette.primary.main,
+    },
+    cell: {
+        color: theme.palette.secondary.main,
+        fontWeight: 700
     }
 }));
-export default function Table({ patients }) {
+export default function Table({ patients, setPatients }) {
     const classes = useStyles();
     console.log('patients', patients)
+    const handleDelete = (id) => {
+        const deleteList = patients.filter(patient => patient.id !== id);
+        setPatients(deleteList);
+    }
     return (
         <TableContainer component={Paper} className={classes.container}>
             <MuiTable aria-label="table">
             <TableHead>
-                <TableRow>
-                    <TableCell align="right">ID</TableCell>
-                    <TableCell align="right">Name</TableCell>
-                    <TableCell align="right">Surname</TableCell>
-                    <TableCell align="right">Birthdate</TableCell>
-                    <TableCell align="right">Action</TableCell>
+                <TableRow className={classes.row}>
+                    <TableCell align="center" className={classes.cell}>ID</TableCell>
+                    <TableCell align="center" className={classes.cell}>NAME</TableCell>
+                    <TableCell align="center" className={classes.cell}>SURNAME</TableCell>
+                    <TableCell align="center" className={classes.cell}>BIRTHDATE</TableCell>
+                    <TableCell align="center" className={classes.cell}>ACTION</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
                 {patients.map((row) => (
                     <TableRow key={row.id}>
-                        <TableCell align="right">{row.id}</TableCell>
-                        <TableCell align="right">{row.name}</TableCell>
-                        <TableCell align="right">{row.surname}</TableCell>
-                        <TableCell align="right">{row.birthdate}</TableCell>
-                        <TableCell align="right"><Button>Delete</Button></TableCell>
+                        <TableCell align="center">{row.id}</TableCell>
+                        <TableCell align="center">{row.name}</TableCell>
+                        <TableCell align="center">{row.surname}</TableCell>
+                        <TableCell align="center">{row.birthdate}</TableCell>
+                        <TableCell align="center"><Button onClick={() => handleDelete(row.id)} color="primary">Delete</Button></TableCell>
                     </TableRow>
                 ))}
                 </TableBody>
