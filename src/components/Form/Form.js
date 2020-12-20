@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TextField, Button } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -42,8 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Form({ setShowForm, showForm, patients, setPatients }) {
     const classes = useStyles();
-    const { handleSubmit, register, errors, control } = useForm({ defaultValues, reValidateMode: 'onChange', resolver: yupResolver(schema), mode: 'onChange' });
-    const [ error, setError ] = useState(false);
+    const { handleSubmit, register, errors } = useForm({ defaultValues, reValidateMode: 'onChange', resolver: yupResolver(schema), mode: 'onChange' });
 
     const onSubmit = data => {
       patients.push({
@@ -55,12 +54,9 @@ export default function Form({ setShowForm, showForm, patients, setPatients }) {
       setPatients(patients);
       setShowForm(false);
     }
-
-    console.log(errors)
-
+  
     return (
       <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
-
         <TextField size="small"
           className={classes.input}
           inputRef={register}
@@ -69,9 +65,10 @@ export default function Form({ setShowForm, showForm, patients, setPatients }) {
           variant="outlined"
           type="text"
           InputLabelProps={{ required: true }}
+          aria-label="id"
         />
         {errors.id && (
-          <Alert severity="error">
+          <Alert severity="error" aria-label="alert">
             Id required
           </Alert>
         )}
@@ -83,9 +80,10 @@ export default function Form({ setShowForm, showForm, patients, setPatients }) {
           variant="outlined"
           type="text"
           InputLabelProps={{ required: true }}
+          aria-label="name"
         />
         {errors.name && (
-          <Alert severity="error">
+          <Alert severity="error" aria-label="alert">
             Name required
           </Alert>
         )}
@@ -97,9 +95,10 @@ export default function Form({ setShowForm, showForm, patients, setPatients }) {
           variant="outlined"
           type="text"
           InputLabelProps={{ required: true }}
+          aria-label="surname"
         />
         {errors.surname && (
-          <Alert severity="error">
+          <Alert severity="error" aria-label="alert">
             Surname required
           </Alert>
         )}
@@ -111,15 +110,13 @@ export default function Form({ setShowForm, showForm, patients, setPatients }) {
           variant="outlined"
           type="date"
           InputLabelProps={{ shrink: true, required: true }}
+          aria-label="birthdate"
         />
         {errors.birthdate && (
-          <Alert severity="error">
+          <Alert severity="error" aria-label="alert">
             Birthdate required
           </Alert>
         )}
-        {error && <Alert severity="error">
-          Sign up failed!
-          </Alert>}
         <div>
           <Button className={classes.button} variant="contained" color="primary" type="submit">Add client</Button>
           <Button className={classes.button} variant="contained" color="primary" onClick={() => setShowForm(!showForm)}>Cancel</Button>

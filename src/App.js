@@ -1,8 +1,8 @@
 import './App.css';
 import React, { useState } from 'react';
 import { Button, Typography} from '@material-ui/core';
-import Table from './components/Table';
-import Form from './components/Form';
+import Table from './components/Table/Table';
+import Form from './components/Form/Form';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
@@ -13,21 +13,21 @@ const list = [
     id: '123',
     name: 'Mario',
     surname: 'Sanchez',
-    birthdate: '01/11/1982'
+    birthdate: '1982-01-11'
   },
   {
     id: '122',
     name: 'Carla',
     surname: 'Jimenez',
-    birthdate: '01/11/1989'
+    birthdate: '1989-01-11'
   },
   {
     id: '111',
     name: 'Jane',
     surname: 'Doe',
-    birthdate: '01/11/1990'
+    birthdate: '1990-01-11'
   },
-]
+];
 
 const useStyles = makeStyles(() => ({
   app: {
@@ -68,7 +68,7 @@ function App() {
         {!showForm ? (
           <div className={classes.container}>
             <Typography variant="h1" color="primary" className={classes.header}>Patients List</Typography>
-            <Table patients={patients} setPatients={setPatients} />
+            <Table patients={patients} setPatients={setPatients} aria-label="table"/>
             <Button className={classes.button} variant="contained" color="primary" onClick={() => setShowForm(!showForm)}>Add patient</Button>
           </div>
         ) : (

@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function Table({ patients, setPatients }) {
     const classes = useStyles();
-    console.log('patients', patients)
     const handleDelete = (id) => {
         const deleteList = patients.filter(patient => patient.id !== id);
         setPatients(deleteList);
@@ -42,13 +41,13 @@ export default function Table({ patients, setPatients }) {
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                {patients.map((row) => (
-                    <TableRow key={row.id}>
+                {patients && patients.map((row) => (
+                    <TableRow key={row.id} aria-label="body-row">
                         <TableCell align="center">{row.id}</TableCell>
                         <TableCell align="center">{row.name}</TableCell>
                         <TableCell align="center">{row.surname}</TableCell>
                         <TableCell align="center">{row.birthdate}</TableCell>
-                        <TableCell align="center"><Button onClick={() => handleDelete(row.id)} color="primary">Delete</Button></TableCell>
+                        <TableCell align="center"><Button onClick={() => handleDelete(row.id)} color="primary" aria-label="button">Delete</Button></TableCell>
                     </TableRow>
                 ))}
                 </TableBody>
